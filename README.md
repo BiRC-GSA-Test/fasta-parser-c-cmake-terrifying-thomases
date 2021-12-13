@@ -1,4 +1,5 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-f059dc9a6f8d3a56e377f745f24479a46679e63a5d9fe6f495e02850cd0d8118.svg)](https://classroom.github.com/online_ide?assignment_repo_id=6578548&assignment_repo_type=AssignmentRepo)
+
 # FASTA parser exercises
 
 Genome sequences are usually stored in so-called [FASTA files](https://en.wikipedia.org/wiki/FASTA_format), and we will use the same in this class. However, we will not need to full specification of this file format, since genomic data is commonly stored in files that do not use the full set of features.
@@ -15,9 +16,9 @@ In the projects, you will always get your genomic input in Simple-FASTA files. T
 
 A Simple-FASTA file is a plain text file that consists of one or more records, where each record starts with a `>` as the first character on a line. The first line in a record, the line that starts with `>` is the *header* and the remaining lines contain the sequence.
 
-In a regular FASTA file, the header can contain various meta-information about a sequence, but in Simple-FASTA, it will just be the name of the sequence. You get this name by removing the `>` character and any leading or trailing white-space. So, if the header is `> foo `, then the name is just `foo`, not `> foo `, and not `>foo`. Just `foo`.
+In a regular FASTA file, the header can contain various meta-information about a sequence, but in Simple-FASTA, it will just be the name of the sequence. You get this name by removing the `>` character and any leading or trailing white-space. So, if the header is `> foo `, then the name is just `foo`, not `> foo `, and not `>foo`. Just `foo`. If the header is `> foo bar`, the name is `foo bar`, because we only skip leading and trailing spaces, not spaces in the middle of the string.
 
-The sequence is all the lines that follow the header, until we either see a new header, recognisable by a `>` at the beginning of a line, or the end of the file. Newlines are not considered part of the sequence, so you should remove those and concatenate the lines.
+The sequence is all the lines that follow the header, until we either see a new header, recognisable by a `>` at the beginning of a line, or the end of the file. Spaces are not considered part of the sequence, so you should remove those and concatenate the lines.
 
 For example, if we have the header
 
