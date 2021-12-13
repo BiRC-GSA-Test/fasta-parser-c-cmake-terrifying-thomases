@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "fasta.h"
+
 // This only works if we have an actual file. If we get
 // the data on a stream, such as stdin, we cannot work out what
 // the size of the total buffer is, and then we would need
@@ -42,7 +44,7 @@ char *load_file(const char *fname)
 // Reads a header from a string in fasta format.
 // Move buf forward to the beginning of the following sequence
 // and return the header.
-static char *read_fasta_header(char **buf)
+char *read_fasta_header(char **buf)
 {
     char *header, *header_end;
 
@@ -76,7 +78,7 @@ static char *read_fasta_header(char **buf)
 // Reads a sequence from a string in fasta format. Like above, buf moves
 // forward to the next header or the end of file while we compact
 // the sequence and return a pointer to it.
-static char *read_fasta_sequence(char **buf)
+char *read_fasta_sequence(char **buf)
 {
     char *seq = *buf;
 
@@ -105,30 +107,4 @@ static char *read_fasta_sequence(char **buf)
     *s = '\0'; // terminate sequence
 
     return seq;
-}
-
-int main(int argc, char const *argv[])
-{
-    if (argc < 2)
-    {
-        fprintf(stderr, "Usage: %s fasta-file\n", argv[0]);
-        return 1;
-    }
-
-    char *fasta_buf = load_file(argv[1]), *buf = fasta_buf;
-    if (!fasta_buf)
-    {
-        fprintf(stderr, "Error reading file %s.\n", argv[1]);
-        return 1;
-    }
-
-    while (*buf)
-    {
-        char *header = read_fasta_header(&buf);
-        char *seq = read_fasta_sequence(&buf);
-        printf("%s\t%s\n", header, seq);
-    }
-    free(fasta_buf);
-
-    return 0;
 }
