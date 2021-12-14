@@ -90,10 +90,7 @@ char *read_fasta_sequence(char **buf)
         // compact one line
         while (**buf && **buf != '\n')
         {
-            if (isspace(**buf))
-                (*buf)++;
-            else
-                *s++ = *(*buf)++; // compact
+            *s++ = *(*buf)++; // compact
         }
 
         if (**buf == '\0' || *++(*buf) == '>')
